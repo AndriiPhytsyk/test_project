@@ -17,10 +17,10 @@ interface IHeader {
 const Header: IHeader = {name: "Sections", checkAllViews: false, checkAllEdits:false, checkAllRemoves:false, disabled: true};
 
 const Categories: ICategories[] = [
-    { id: 1, name: "Calendar", view: false, edit: false, remove:false },
-    { id: 2, name: "Profile", view: false, edit: false, remove:false },
-    { id: 3, name: "Property", view: false, edit: false, remove:false },
-    { id: 4, name: "Contacts", view: false, edit: false, remove:false }
+    { id: 1, name: "Calendar", view: {checked: true, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} },
+    { id: 2, name: "Profile", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} },
+    { id: 3, name: "Property", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} },
+    { id: 4, name: "Contacts", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} }
 ]
 
 class HerosComponentController implements ng.IComponentController {
@@ -59,9 +59,9 @@ class HerosComponent implements ng.IComponentOptions {
     <tbody>
         <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
             <td>{{category.name}}</td>
-            <td><input type="checkbox" ng-model="category.view">View</td>
-            <td><input type="checkbox" ng-model="category.edit">Edit</td>
-            <td><input type="checkbox" ng-model="category.remove">Remove</td>
+            <td><input type="checkbox" ng-model="category.checked.view">View</td>
+            <td><input type="checkbox" ng-model="category.checked.edit">Edit</td>
+            <td><input type="checkbox" ng-model="category.checked.remove">Remove</td>
         </tr>
     </tbody>
 </table>
