@@ -4,7 +4,6 @@ interface ICategories {
     view: boolean;
     edit: boolean;
     remove: boolean;
-    disabled: boolean;
 }
 
 interface IHeader {
@@ -18,7 +17,7 @@ interface IHeader {
 const Header: IHeader = {name: "Sections", checkAllViews: false, checkAllEdits:false, checkAllRemoves:false, disabled: true};
 
 const Categories: ICategories[] = [
-    { id: 1, name: "Calendar", view: {active: false, disabled: false}, edit: false, remove:false },
+    { id: 1, name: "Calendar", view: false, edit: false, remove:false },
     { id: 2, name: "Profile", view: false, edit: false, remove:false },
     { id: 3, name: "Property", view: false, edit: false, remove:false },
     { id: 4, name: "Contacts", view: false, edit: false, remove:false }
@@ -47,17 +46,18 @@ class HerosComponent implements ng.IComponentOptions {
         this.controller = HerosComponentController;
         this.controllerAs = "$ctrl";
         this.template = `
-    <table border="1">
+<div class="row d-flex justify-content-center">
+    <table class="table col-6">
     <thead>
         <tr>
-            <th>{{$ctrl.header.name}}</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllViews" disabled="$ctrl.header.disabled">Check All</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllEdits" disabled="$ctrl.header.disabled">Check All</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllRemoves" disabled="$ctrl.header.disabled">Check All</th>
+            <th scope="col">{{$ctrl.header.name}}</th>
+            <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllViews" disabled="$ctrl.header.disabled">Check All</th>
+            <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllEdits" disabled="$ctrl.header.disabled">Check All</th>
+            <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllRemoves" disabled="$ctrl.header.disabled">Check All</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in $ctrl.categories">
+        <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
             <td>{{category.name}}</td>
             <td><input type="checkbox" ng-model="category.view">View</td>
             <td><input type="checkbox" ng-model="category.edit">Edit</td>
@@ -65,6 +65,15 @@ class HerosComponent implements ng.IComponentOptions {
         </tr>
     </tbody>
 </table>
+</div>
+<div class="row d-flex justify-content-center">
+<div class="col-6">
+<button type="button" class="btn btn-primary ml-auto d-block">Save</button>
+</div>
+    
+</div>
+
+
     `;
     }
 }

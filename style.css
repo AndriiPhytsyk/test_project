@@ -1,0 +1,14 @@
+.bottom-border-dotted {
+    border-bottom: 3px dotted black;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top:50px
+}
+
+
+input[type=checkbox] {
+    margin-right: 5px;
+}
+
