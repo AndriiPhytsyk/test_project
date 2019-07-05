@@ -1,4 +1,4 @@
-var Header = { name: "Sections", checkAllViews: false, checkAllEdits: false, checkAllRemoves: false, disabled: true };
+var Header = { name: "Sections", view: { checked: false, disabled: false }, edit: { checked: false, disabled: true }, remove: { checked: false, disabled: true } };
 var Categories = [
     { id: 1, name: "Calendar", view: { checked: false, disabled: false }, edit: { checked: false, disabled: true }, remove: { checked: false, disabled: true } },
     { id: 2, name: "Profile", view: { checked: false, disabled: false }, edit: { checked: false, disabled: true }, remove: { checked: false, disabled: true } },
@@ -7,10 +7,19 @@ var Categories = [
 ];
 var HerosComponentController = /** @class */ (function () {
     function HerosComponentController() {
+        this.ifCheckedAll = false;
     }
     HerosComponentController.prototype.$onInit = function () {
         this.categories = Categories;
         this.header = Header;
+    };
+    HerosComponentController.prototype.toggleSelection = function (e) {
+        var name = e.target.name;
+        console.log('name', name);
+        this.ifCheckedAll = this.categories.every(function (category) { return category[name].checked; });
+        if (this.ifCheckedAll) {
+            this.header[name].checked = true;
+        }
     };
     return HerosComponentController;
 }());

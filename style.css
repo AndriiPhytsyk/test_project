@@ -1,5 +1,5 @@
 .bottom-border-dotted {
-    border-bottom: 3px dotted black;
+    border-bottom: 2px dotted black;
 }
 
 table {
@@ -13,8 +13,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:disabled {
-    outline:2px solid red;
-    opacity:0.5;
+    opacity:0.7;
     color: #000000;
     background: #000000;
 
