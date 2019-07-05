@@ -8,7 +8,20 @@ table {
 }
 
 
-input[type=checkbox] {
+input[type="checkbox"] {
     margin-right: 5px;
 }
+
+input[type="checkbox"]:disabled {
+    outline:2px solid red;
+    color: #000000;
+    background: #000000;
+
+}
+
+.frame {
+    border: 1px solid black;
+}
+
+
 

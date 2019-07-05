@@ -1,0 +1,24 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-6 frame mt-5 p-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">{{$ctrl.header.name}}</th>
+                <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllViews" disabled="$ctrl.header.disabled">Check All</th>
+                <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllEdits" disabled="$ctrl.header.disabled">Check All</th>
+                <th scope="col"><input type="checkbox" ng-model="$ctrl.header.checkAllRemoves" disabled="$ctrl.header.disabled">Check All</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
+                <td>{{category.name}}</td>
+                <td><input type="checkbox" ng-model="category.view.checked" disabled="category.view.disabled">View</td>
+                <td><input type="checkbox" ng-model="category.edit.checked" disabled="category.edit.disabled">Edit</td>
+                <td><input type="checkbox" ng-model="category.remove.checked" disabled="category.remove.disabled">Remove</td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary ml-auto d-block">Save</button>
+    </div>
+</div>
+
