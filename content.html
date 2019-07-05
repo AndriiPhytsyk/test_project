@@ -12,8 +12,8 @@
             <tbody>
             <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
                 <td>{{category.name}}</td>
-                <td><input type="checkbox" ng-model="category.view.checked" disabled="category.view.disabled">View</td>
-                <td><input type="checkbox" ng-model="category.edit.checked" disabled="category.edit.disabled">Edit</td>
+                <td><input type="checkbox" ng-model="category.view.checked" ng-disabled="category.view.disabled">View</td>
+                <td><input type="checkbox" ng-model="category.edit.checked" disabled="{{category.edit.disabled && !category.view.checked}}">Edit</td>
                 <td><input type="checkbox" ng-model="category.remove.checked" disabled="category.remove.disabled">Remove</td>
             </tr>
             </tbody>

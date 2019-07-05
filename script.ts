@@ -21,7 +21,7 @@ const Categories: ICategories[] = [
     { id: 2, name: "Profile", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} },
     { id: 3, name: "Property", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} },
     { id: 4, name: "Contacts", view: {checked: false, disabled: false}, edit: {checked: false, disabled: true}, remove:{checked: false, disabled: true} }
-]
+];
 
 class HerosComponentController implements ng.IComponentController {
 
