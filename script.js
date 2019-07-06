@@ -1,16 +1,59 @@
-var Header = { name: "Sections", checkAllViews: false, checkAllEdits: false, checkAllRemoves: false, disabled: true };
+var Header = { name: "Sections", view: { checked: false, disabled: false }, edit: { checked: false, disabled: true }, remove: { checked: false, disabled: true } };
 var Categories = [
-    { id: 1, name: "Calendar", view: false, edit: false, remove: false },
-    { id: 2, name: "Profile", view: false, edit: false, remove: false },
-    { id: 3, name: "Property", view: false, edit: false, remove: false },
-    { id: 4, name: "Contacts", view: false, edit: false, remove: false }
+    { id: 1, name: "Calendar",
+        view: { checked: false, disabled: false },
+        edit: { checked: false, disabled: true },
+        remove: { checked: false, disabled: true } },
+    { id: 2, name: "Profile",
+        view: { checked: false, disabled: false },
+        edit: { checked: false, disabled: true },
+        remove: { checked: false, disabled: true } },
+    { id: 3, name: "Property",
+        view: { checked: false, disabled: false },
+        edit: { checked: false, disabled: true },
+        remove: { checked: false, disabled: true } },
+    { id: 4, name: "Contacts",
+        view: { checked: false, disabled: false },
+        edit: { checked: false, disabled: true },
+        remove: { checked: false, disabled: true } }
 ];
 var HerosComponentController = /** @class */ (function () {
     function HerosComponentController() {
+        this.ifCheckedAll = false;
     }
     HerosComponentController.prototype.$onInit = function () {
         this.categories = Categories;
         this.header = Header;
+    };
+    HerosComponentController.prototype.toggleSelection = function (e) {
+        var name = e.target.name;
+        console.log('name', name);
+        console.log('categories', this.categories);
+        this.ifCheckedAll = this.categories.every(function (category) { return category[name].checked; });
+        if (this.ifCheckedAll) {
+            this.header[name].checked = true;
+            this.header[name].disabled = false;
+        }
+        else {
+            this.header[name].checked = false;
+            this.header[name].disabled = true;
+        }
+    };
+    HerosComponentController.prototype.mapper = function () {
+        return this.categories.map(function (category) {
+            return {
+                section: category.name,
+                permission: {
+                    view: category.view.checked,
+                    edit: category.edit.checked,
+                    remove: category.remove.checked,
+                }
+            };
+        });
+    };
+    HerosComponentController.prototype.saveInLocalStorage = function () {
+        var mappedObj = this.mapper();
+        window.localStorage.setItem('savedItems', JSON.stringify(mappedObj));
     };
     return HerosComponentController;
 }());
@@ -18,7 +61,7 @@ var HerosComponent = /** @class */ (function () {
     function HerosComponent() {
         this.controller = HerosComponentController;
         this.controllerAs = "$ctrl";
-        this.template = "\n    <table border=\"1\">\n    <thead>\n        <tr>\n            <th>{{$ctrl.header.name}}</th>\n            <th><input type=\"checkbox\" ng-model=\"$ctrl.header.checkAllViews\" disabled=\"$ctrl.header.disabled\">Check All</th>\n            <th><input type=\"checkbox\" ng-model=\"$ctrl.header.checkAllEdits\" disabled=\"$ctrl.header.disabled\">Check All</th>\n            <th><input type=\"checkbox\" ng-model=\"$ctrl.header.checkAllRemoves\" disabled=\"$ctrl.header.disabled\">Check All</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr ng-repeat=\"category in $ctrl.categories\">\n            <td>{{category.name}}</td>\n            <td><input type=\"checkbox\" ng-model=\"category.view\">View</td>\n            <td><input type=\"checkbox\" ng-model=\"category.edit\">Edit</td>\n            <td><input type=\"checkbox\" ng-model=\"category.remove\">Remove</td>\n        </tr>\n    </tbody>\n</table>\n    ";
+        this.templateUrl = "./content.html";
     }
     return HerosComponent;
 }());

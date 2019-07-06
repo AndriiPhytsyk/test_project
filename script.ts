@@ -4,7 +4,6 @@ interface ICategories {
     view: boolean;
     edit: boolean;
     remove: boolean;
-    disabled: boolean;
 }
 
 interface IHeader {
@@ -15,19 +14,33 @@ interface IHeader {
     disabled: boolean
 }
 
-const Header: IHeader = {name: "Sections", checkAllViews: false, checkAllEdits:false, checkAllRemoves:false, disabled: true};
+const Header: IHeader = {name: "Sections", view: {checked: false, disabled: false}, edit:{checked: false, disabled: true}, remove:{checked: false, disabled: true}};
 
 const Categories: ICategories[] = [
-    { id: 1, name: "Calendar", view: {active: false, disabled: false}, edit: false, remove:false },
-    { id: 2, name: "Profile", view: false, edit: false, remove:false },
-    { id: 3, name: "Property", view: false, edit: false, remove:false },
-    { id: 4, name: "Contacts", view: false, edit: false, remove:false }
-]
+    { id: 1, name: "Calendar",
+        view: {checked: false, disabled: false},
+        edit: {checked: false, disabled: true},
+        remove:{checked: false, disabled: true} },
+    { id: 2, name: "Profile",
+        view: {checked: false, disabled: false},
+        edit: {checked: false, disabled: true},
+        remove:{checked: false, disabled: true} },
+    { id: 3, name: "Property",
+        view: {checked: false, disabled: false},
+        edit: {checked: false, disabled: true},
+        remove:{checked: false, disabled: true} },
+    { id: 4, name: "Contacts",
+        view: {checked: false, disabled: false},
+        edit: {checked: false, disabled: true},
+        remove:{checked: false, disabled: true} }
+];
 
 class HerosComponentController implements ng.IComponentController {
 
     public categories: ICategories[];
     public header: IHeader;
+
+    public ifCheckedAll: boolean = false;
 
     constructor() {}
 
@@ -35,37 +48,53 @@ class HerosComponentController implements ng.IComponentController {
         this.categories = Categories;
         this.header = Header;
     }
+
+    public toggleSelection(e) {
+        const { name } = e.target;
+        console.log('name',name)
+        console.log('categories',this.categories)
+
+        this.ifCheckedAll = this.categories.every(category => category[name].checked)
+
+        if (this.ifCheckedAll) {
+            this.header[name].checked = true;
+            this.header[name].disabled = false;
+        } else {
+            this.header[name].checked = false;
+            this.header[name].disabled = true;
+        }
+    }
+
+    private mapper(){
+        return this.categories.map(category => {
+            return {
+                section: category.name,
+                permission: {
+                    view: category.view.checked,
+                    edit: category.edit.checked,
+                    remove: category.remove.checked,
+                }
+            }
+        })
+    }
+
+    public saveInLocalStorage() {
+        const mappedObj =  this.mapper();
+        window.localStorage.setItem('savedItems', JSON.stringify(mappedObj))
+    }
+
 }
 
 class HerosComponent implements ng.IComponentOptions {
 
     public controller: ng.Injectable<ng.IControllerConstructor>;
     public controllerAs: string;
-    public template: string;
+    public templateUrl: string;
 
     constructor() {
         this.controller = HerosComponentController;
         this.controllerAs = "$ctrl";
-        this.template = `
-    <table border="1">
-    <thead>
-        <tr>
-            <th>{{$ctrl.header.name}}</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllViews" disabled="$ctrl.header.disabled">Check All</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllEdits" disabled="$ctrl.header.disabled">Check All</th>
-            <th><input type="checkbox" ng-model="$ctrl.header.checkAllRemoves" disabled="$ctrl.header.disabled">Check All</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="category in $ctrl.categories">
-            <td>{{category.name}}</td>
-            <td><input type="checkbox" ng-model="category.view">View</td>
-            <td><input type="checkbox" ng-model="category.edit">Edit</td>
-            <td><input type="checkbox" ng-model="category.remove">Remove</td>
-        </tr>
-    </tbody>
-</table>
-    `;
+        this.templateUrl = `./content.html`;
     }
 }
 
