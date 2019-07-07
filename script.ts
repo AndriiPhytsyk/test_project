@@ -1,17 +1,18 @@
+import './style.css';
+
 interface ICategories {
     id: number;
     name: string;
-    view: boolean;
-    edit: boolean;
-    remove: boolean;
+    view: {checked: boolean, disabled: boolean};
+    edit: {checked: boolean, disabled: boolean};
+    remove: {checked: boolean, disabled: boolean};
 }
 
 interface IHeader {
     name: string,
-    checkAllViews: boolean,
-    checkAllEdits: boolean,
-    checkAllRemoves: boolean,
-    disabled: boolean
+    view: {checked: boolean, disabled: boolean},
+    edit: {checked: boolean, disabled: boolean},
+    remove: {checked: boolean, disabled: boolean},
 }
 
 const Header: IHeader = {name: "Sections", view: {checked: false, disabled: false}, edit:{checked: false, disabled: true}, remove:{checked: false, disabled: true}};
@@ -35,7 +36,7 @@ const Categories: ICategories[] = [
         remove:{checked: false, disabled: true} }
 ];
 
-class HerosComponentController implements ng.IComponentController {
+export class AppComponentController implements ng.IComponentController {
 
     public categories: ICategories[];
     public header: IHeader;
@@ -85,23 +86,42 @@ class HerosComponentController implements ng.IComponentController {
 
 }
 
-class HerosComponent implements ng.IComponentOptions {
+export class AppComponent implements ng.IComponentOptions {
 
     public controller: ng.Injectable<ng.IControllerConstructor>;
     public controllerAs: string;
-    public templateUrl: string;
+    public template: string;
 
     constructor() {
-        this.controller = HerosComponentController;
+        this.controller = AppComponentController;
         this.controllerAs = "$ctrl";
-        this.templateUrl = `./content.html`;
+        this.template = `<div class="row d-flex justify-content-center">
+    <div class="col-6 frame mt-5 p-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">{{$ctrl.header.name}}</th>
+                <th scope="col"><input type="checkbox"  ng-model="$ctrl.header.view.checked" ng-disabled="$ctrl.header.view.disabled">Check All</th>
+                <th scope="col"><input type="checkbox"  ng-model="$ctrl.header.edit.checked" ng-disabled="$ctrl.header.edit.disabled">Check All</th>
+                <th scope="col"><input type="checkbox" ng-model="$ctrl.header.remove.checked" ng-disabled="$ctrl.header.remove.disabled">Check All</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
+                <td>{{category.name}}</td>
+                <td><input name="view" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.view.checked" ng-disabled="category.view.disabled">View</td>
+                <td><input name="edit" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.edit.checked" ng-disabled="!category.view.checked">Edit</td>
+                <td><input name="remove" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.remove.checked" ng-disabled="!category.view.checked">Remove</td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary ml-auto d-block" ng-click="$ctrl.saveInLocalStorage()">Save</button>
+    </div>
+</div>
+
+`;
     }
 }
 
-angular
-    .module("mySuperAwesomeApp", [])
-    .component("heros", new HerosComponent());
 
-angular.element(document).ready(function() {
-    angular.bootstrap(document, ["mySuperAwesomeApp"]);
-});
+
