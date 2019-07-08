@@ -13,10 +13,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:disabled {
-    opacity:0.7;
-    color: #000000;
-    background: #000000;
-
+    opacity:0.5;
 }
 
 .frame {

@@ -3,7 +3,7 @@ import '@uirouter/angularjs';
 import 'angular-ui-bootstrap';
 import './style.css';
 
-import { AppComponent } from './script.ts';
+import { AppComponent } from './app.component';
 
 
 let appModule =
@@ -14,10 +14,3 @@ let appModule =
 
 angular.bootstrap(document, [appModule.name]);
 
-// angular
-//     .module("mySuperAwesomeApp", [])
-//     .component("heros", new HerosComponent());
-//
-// angular.element(document).ready(function() {
-//     angular.bootstrap(document, ["mySuperAwesomeApp"]);
-// });
