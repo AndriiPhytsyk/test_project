@@ -94,22 +94,22 @@ export class AppComponent implements ng.IComponentOptions {
         this.controllerAs = "$ctrl";
         this.template = `<div class="d-flex justify-content-center ">
 <div class="row frame  mt-5 p-4">
-    <div class="col-xxs-10">
+    <div>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">{{$ctrl.header.name}}</th>
-                <th scope="col"><input type="checkbox" class="d-block d-sm-inline" ng-model="$ctrl.header.view.checked" ng-disabled="$ctrl.header.view.disabled">Check All</th>
-                <th scope="col"><input type="checkbox"  class="d-block d-sm-inline" ng-model="$ctrl.header.edit.checked" ng-disabled="$ctrl.header.edit.disabled">Check All</th>
-                <th scope="col"><input type="checkbox" class="d-block d-sm-inline"ng-model="$ctrl.header.remove.checked" ng-disabled="$ctrl.header.remove.disabled">Check All</th>
+                <th scope="col"><input type="checkbox" class="d-block d-sm-inline mx-auto" ng-model="$ctrl.header.view.checked" ng-disabled="$ctrl.header.view.disabled"><span class="text-center d-sm-inline ml-sm-1">Check All</span></th>
+                <th scope="col"><input type="checkbox" class="d-block d-sm-inline mx-auto" ng-model="$ctrl.header.edit.checked" ng-disabled="$ctrl.header.edit.disabled"><span class="text-center d-sm-inline ml-sm-1">Check All</span></th>
+                <th scope="col"><input type="checkbox" class="d-block d-sm-inline mx-auto" ng-model="$ctrl.header.remove.checked" ng-disabled="$ctrl.header.remove.disabled"><span class="text-center d-sm-inline ml-sm-1">Check All</span></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="category in $ctrl.categories" class="bottom-border-dotted">
                 <td>{{category.name}}</td>
-                <td><input class="d-block d-sm-inline" name="view" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.view.checked" ng-disabled="category.view.disabled">View</td>
-                <td><input class="d-block d-sm-inline" name="edit" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.edit.checked" ng-disabled="!category.view.checked">Edit</td>
-                <td><input class="d-block d-sm-inline" name="remove" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.remove.checked" ng-disabled="!category.view.checked">Remove</td>
+                <td><input class="d-flex d-sm-inline mx-auto" name="view" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.view.checked" ng-disabled="category.view.disabled"><span class="text-center d-sm-inline ml-sm-1">View</span></td>
+                <td><input class="d-flex d-sm-inline mx-auto" name="edit" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.edit.checked" ng-disabled="!category.view.checked"><span class="text-center d-sm-inline ml-sm-1">Edit</span></td>
+                <td><input class="d-flex d-sm-inline mx-auto" name="remove" ng-click="$ctrl.toggleSelection($event)" type="checkbox" ng-model="category.remove.checked" ng-disabled="!category.view.checked"><span class="text-center d-sm-inline ml-sm-1">Remove</span></td>
             </tr>
             </tbody>
         </table>
@@ -117,7 +117,6 @@ export class AppComponent implements ng.IComponentOptions {
     </div>
 </div>
 </div>
-
 `;
     }
 }
