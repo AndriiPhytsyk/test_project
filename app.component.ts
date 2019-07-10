@@ -52,7 +52,7 @@ export class AppComponentController implements ng.IComponentController {
     public toggleSelection(e) {
         const { name } = e.target;
 
-        this.ifCheckedAll = this.categories.every(category => category[name].checked)
+        this.ifCheckedAll = this.categories.every(category => category[name].checked);
 
         if (this.ifCheckedAll) {
             this.header[name].checked = true;
@@ -92,9 +92,9 @@ export class AppComponent implements ng.IComponentOptions {
     constructor() {
         this.controller = AppComponentController;
         this.controllerAs = "$ctrl";
-        this.template = `<div class="d-flex justify-content-center ">
-<div class="row frame  mt-5 p-4">
-    <div>
+        this.template = `
+<div class="d-flex justify-content-center ">
+    <div class="row frame  mt-5 p-4">
         <table class="table">
             <thead>
             <tr>
@@ -115,7 +115,6 @@ export class AppComponent implements ng.IComponentOptions {
         </table>
         <button type="button" class="btn btn-primary ml-auto d-block" ng-click="$ctrl.saveInLocalStorage()">Save</button>
     </div>
-</div>
 </div>
 `;
     }
