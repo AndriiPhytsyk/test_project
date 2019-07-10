@@ -3,7 +3,7 @@ import '@uirouter/angularjs';
 import 'angular-ui-bootstrap';
 import './style.css';
 
-import { AppComponent } from './src/app.component';
+import { AppComponent } from './app.component';
 
 
 let appModule =
