@@ -15,7 +15,8 @@ module.exports = {
             {test: /\.jpg$/, use: 'url-loader?mimetype=image/jpg'},
             { test: /\.tsx?$/, use: 'ts-loader' },
             {test: /\.css$/, loader: 'style-loader!css-loader'}
-]
+
+        ]
     },
     externals: [
         //'jquery',

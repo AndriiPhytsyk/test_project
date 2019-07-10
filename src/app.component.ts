@@ -76,9 +76,18 @@ export class AppComponentController implements ng.IComponentController {
         })
     }
 
+    private resetCheckboxes() {
+        this.categories.forEach(category => {
+            category.view.checked = false;
+            category.edit.checked = false;
+            category.remove.checked = false;
+        })
+    }
+
     public saveInLocalStorage() {
         const mappedObj =  this.mapper();
-        window.localStorage.setItem('savedItems', JSON.stringify(mappedObj))
+        window.localStorage.setItem('savedItems', JSON.stringify(mappedObj));
+        this.resetCheckboxes()
     }
 
 }
